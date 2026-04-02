@@ -51,6 +51,7 @@ const jikanService = {
             });
             
             const allAnime = res.data.data;
+
             return allAnime.slice(0, limit);
             
         } catch (error) {
