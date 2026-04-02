@@ -6,7 +6,7 @@ import animeRouter from './routes/anime.route.js';
 const app = express();
 
 app.use(cors({
-  origin: 'https://anim-5zi58k25t-vincentyuanns-projects.vercel.app/',
+  origin: 'https://anim-y.vercel.app/',
   credentials: true
 }));
 app.use(express.json());
