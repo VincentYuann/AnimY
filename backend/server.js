@@ -5,7 +5,10 @@ import animeRouter from './routes/anime.route.js';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://anim-5zi58k25t-vincentyuanns-projects.vercel.app/',
+  credentials: true
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
