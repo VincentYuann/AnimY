@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const serverClient = axios.create({
-  baseURL: 'http://localhost:3000/api', 
+  baseURL: 'https://animy.onrender.com/api', 
 });
 
 export default serverClient;
