@@ -6,7 +6,12 @@ import animeRouter from './routes/anime.route.js';
 const app = express();
 
 app.use(cors({
-  origin: 'https://anim-y.vercel.app/',
+  origin: [
+    'https://anim-y.vercel.app', 
+    'https://animy.onrender.com', 
+    'http://localhost:5173', 
+    'http://localhost:3000'
+    ],
   credentials: true
 }));
 app.use(express.json());
