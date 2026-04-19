@@ -1,4 +1,8 @@
-import serverClient from '../services/serverClient';
+import axios from 'axios';
+
+const serverClient = axios.create({
+  baseURL: 'https://animy.onrender.com/api', 
+});
 
 // Max 25 results per page
 export const searchAnimes = async (filterObject={}) => {

@@ -25,7 +25,7 @@ function ProfilePage() {
             <h2>Profile Page</h2>
             <div>
                 <img
-                    src={user?.user_metadata?.avatar_url || "/profile-placeholder.jpg"}
+                    src={`${user?.user_metadata?.avatar_url}?t=${new Date().getTime()}` || "/profile-placeholder.jpg"}
                     referrerPolicy="no-referrer"
                     alt="Profile" />
                 <p>{user?.user_metadata.full_name}</p>

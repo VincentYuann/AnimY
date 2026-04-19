@@ -18,8 +18,6 @@ function AuthProvider({ children }) {
             setUser(currentUser);
             setLoading(false);
 
-            console.log(event, session)
-
             if (event === 'SIGNED_IN') {
                 setUser(currentUser);
 
@@ -28,21 +26,8 @@ function AuthProvider({ children }) {
                     toast(<span>Welcome back! <b>{name}</b> </span>, { icon: '👋' });
                     welcomeMessage.current = true;
                 }
-
-            } else if (event === 'SIGNED_OUT') {
-                toast("You've been logged out.", { icon: '🔒' });
-                setUser(null);
-                welcomeMessage.current = false;
-
-            } else if (event === 'PASSWORD_RECOVERY') {
-                navigate("update-password")
-
-            } else if (event === 'USER_UPDATED') {
-                console.log("User updated");
             }
         })
-
-        console.log("User:", user)
 
         return () => {
             subscription.unsubscribe()

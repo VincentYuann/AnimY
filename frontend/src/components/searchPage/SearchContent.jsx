@@ -13,9 +13,7 @@ function SearchResultsContent() {
     });
 
     // Prevents anime duplications
-    const uniqueAnimeList = [
-        ...new Map(animes.map(item => [item.mal_id, item])).values()
-    ];
+    const uniqueAnimeList = Array.from(new Map(animes.map(item => [item.mal_id, item])).values());
 
     return (
         <>

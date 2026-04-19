@@ -1,11 +1,10 @@
-
 import supabase from "./supabaseClient";
 
 const favoritesService = {
     get: async (userId) => {
         const { data, error } = await supabase
             .from("favorites")
-            .select(`cached_animes (anime_object)`)
+            .select(`cached_animes(anime_object)`)
             .eq("user_id", userId);
         
         if (error) {

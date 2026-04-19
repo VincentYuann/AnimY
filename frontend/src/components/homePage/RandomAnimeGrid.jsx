@@ -8,7 +8,7 @@ function RandomAnimeSection() {
         queryFn: () => getRandomAnimes(14),
     });
 
-    const uniqueRandomAnimes = new Map(randomAnimes.map(anime => [anime.mal_id, anime])).values();
+    const uniqueRandomAnimes = Array.from(new Map(randomAnimes.map(anime => [anime.mal_id, anime])).values());
 
     return (
         <>

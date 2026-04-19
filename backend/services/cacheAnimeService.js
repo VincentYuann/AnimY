@@ -2,9 +2,7 @@ import supabase from "../config/supabaseClient.js";
 
 const cacheAnimeService = {
     upsertAnimes: async (animeList) => {
-        const uniqueAnimes = Array.from(
-            new Map(animeList.map(anime => [anime.mal_id, anime])).values()
-        );
+        const uniqueAnimes = Array.from(new Map(animeList.map(anime => [anime.mal_id, anime])).values());
         
         const { data, error } = await supabase
             .from("cached_animes")
