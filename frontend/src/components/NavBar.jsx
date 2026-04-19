@@ -57,7 +57,7 @@ export default function NavBar() {
                 </Link>
                 <Link to="/profile" className="nav-link">
                     <img
-                        src={`${user?.user_metadata?.avatar_url}?t=${new Date().getTime()}` || "/profile-placeholder.jpg"}
+                        src={user ? `${user?.user_metadata?.avatar_url}?t=${new Date().getTime()}` || "/profile-placeholder.jpg" : "/profile-placeholder.jpg"}
                         referrerPolicy="no-referrer"
                         alt="Profile"
                         style={imageStyle} />
