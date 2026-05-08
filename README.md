@@ -92,14 +92,6 @@ Update these commands if your actual package scripts are different.
 
 AnimY was built as a personal project centered on anime discovery and list management in one streamlined experience. The repository presents it as a full-stack app that showcases modern web development tools and practical API integration.
 
-## 🔮 Future Ideas
-
-- 👤 User authentication and profiles.
-- 💖 Like status for favorites.
-- ⭐ Ratings, reviews, and recommendations.
-- 🎨 More UI polish, animations, and mobile optimization.
-- 🧭 Better filtering by genre, score, season, and popularity.
-
 ## 👨‍💻 Developer
 
 Developed by **Vincent Yuan**, a Computer Science student at Drexel University. The project highlights full-stack development with React, Express, Supabase, and anime data integration.
