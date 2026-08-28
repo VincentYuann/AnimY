@@ -1,97 +1,127 @@
-# 🎌 AnimY
+# AnimY
 
-**AnimY** is a full-stack anime tracking web app for fans who want a clean way to search titles, save favorites, and discover what to watch next. It combines a modern React frontend, an Express backend, PostgreSQL via Supabase, and live anime data from the Jikan API.
+AnimY is a full-stack web application for discovering, tracking, and managing anime watchlists. Built with a React frontend, an Express backend, Supabase (PostgreSQL and Authentication), and live anime data integration via the Tenrai API (Jikan successor).
 
-## ✨ Live Demo
+Live Demo: [anim-y.vercel.app](https://anim-y.vercel.app/)
 
-🔗 [Visit AnimY](https://anim-y.vercel.app/)
+---
 
-## 🌟 Features
+## Features
 
-- 🔎 **Anime Discovery** — Search a wide range of anime titles using real-time data from the Jikan API.
-- ❤️ **Favorites Management** — Save and manage a personal list of favorite anime.
-- 💻 **Dynamic UI** — Browse through a responsive, user-friendly interface built for smooth exploration.
-- 🗄️ **Persistent Storage** — Store application data with PostgreSQL through Supabase.
-- 🔐 **Secure Data Access** — Protect user data with Supabase Row-Level Security policies.
+- **Anime Discovery & Search**: Query titles in real-time with comprehensive filters for genres, formats, ratings, and score ranges.
+- **Seasonal Explorer**: Browse current broadcasts, upcoming releases, and past seasonal archives.
+- **Favorites & Watchlist**: Save and manage personal favorites synchronized with Supabase database storage.
+- **Authentication & Security**: Email/password authentication, Google OAuth integration, password recovery, and client-side protected routing.
+- **Modern Performance & UI**: Zero cumulative layout shift (CLS) with responsive skeleton loading, accessible controls, and component-scoped styles.
 
-## 🛠️ Tech Stack
+---
 
-| Layer    | Technology              |
-| -------- | ----------------------- |
-| Frontend | React                   |
-| Backend  | Express.js              |
-| Database | PostgreSQL via Supabase |
-| API      | Jikan API               |
+## Tech Stack
 
-## 🧠 Technical Highlights
+- **Frontend**: React 19, Vite, React Router v7, TanStack React Query v5, Supabase Client, React Hot Toast
+- **Backend**: Node.js, Express 5, Axios, CORS
+- **Database & Auth**: Supabase PostgreSQL with Row-Level Security (RLS), Supabase Auth
+- **Data Provider**: Tenrai API (`api.tenrai.org/v1`) — high-performance successor to legacy Jikan
 
-- 🧩 **Modular Architecture** — Organized into separate frontend and backend folders for cleaner development.
-- ⚛️ **Modern React Patterns** — Uses functional components and hooks for state management.
-- 🚏 **Backend Routing** — Express handles API routing and server-side logic.
-- 🔒 **Privacy-Focused Setup** — Supabase RLS helps keep user data private and secure.
+---
 
-## 📁 Project Structure
+## API Architecture & Data Provider Notes
 
-```bash
+### Legacy Jikan to Tenrai Transition
+The original public Jikan API is legacy and undergoing deprecation/shutdown. AnimY routes all upstream anime queries through the **Tenrai API**, a modern, high-throughput successor that maintains schema compatibility with MyAnimeList data.
+
+### Integrating Alternative API Services
+If you choose to replace Tenrai with an alternative provider (such as AniList or Kitsu), **simply changing the backend `baseURL` is not sufficient**. 
+Different providers use disparate response structures (e.g., GraphQL schemas, JSON:API formats, differing pagination structures, and custom query parameter naming). To switch providers, update the data mapping layer in `backend/services/jikanService.js` to normalize the upstream responses to match AnimY's frontend expectations (`animes: [...]`, `pagination: { ... }`).
+
+---
+
+## Project Structure
+
+```
 AnimY/
 ├── backend/
+│   ├── config/           # Application configuration
+│   ├── routes/           # Express API endpoints
+│   ├── services/         # Tenrai API integration & data processing
+│   ├── server.js         # Backend server entry point
+│   └── package.json
 ├── frontend/
-├── .gitignore
-├── README
-└── package-lock.json
+│   ├── src/
+│   │   ├── components/   # Reusable UI modules & component-scoped CSS
+│   │   ├── context/      # React Auth and Favorites context providers
+│   │   ├── css/          # Global styles, variables, and reset
+│   │   ├── pages/        # Application views (Home, Search, Seasons, Auth, Profile)
+│   │   ├── services/     # Backend API and Supabase client integration
+│   │   ├── App.jsx       # Root layout & route configuration
+│   │   └── main.jsx      # React DOM entry point
+│   └── package.json
+└── README.md
 ```
 
-The repository is structured to keep the frontend and backend clearly separated, making the project easier to maintain and expand.
+---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 1. Clone the repository
+### Prerequisites
 
-```bash
-git clone https://github.com/VincentYuann/AnimY.git
-cd AnimY
-```
+- Node.js (v18 or higher)
+- npm or yarn
+- Supabase account with project credentials
 
-### 2. Install dependencies
+### Port Standards
 
-Install packages in each app folder if the frontend and backend are managed separately.
+| Service | Port | Description |
+| :--- | :--- | :--- |
+| **Frontend** | `5173` | Standard default development port for Vite |
+| **Backend** | `3000` | Standard default development port for Node.js / Express |
 
-```bash
-cd frontend
-npm install
+### Installation
 
-cd ../backend
-npm install
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/VincentYuann/AnimY.git
+   cd AnimY
+   ```
 
-### 3. Add environment variables
+2. Install dependencies for both frontend and backend:
+   ```bash
+   # Install backend dependencies
+   cd backend
+   npm install
 
-Create environment files for the services your app uses. A typical setup may include values like these:
+   # Install frontend dependencies
+   cd ../frontend
+   npm install
+   ```
 
-```env
-SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-DATABASE_URL=your_database_url
-```
+3. Configure environment variables:
 
-### 4. Start the app
+   In `frontend/.env`:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_project_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_BACKEND_URL=http://localhost:3000
+   ```
 
-```bash
-# frontend
-cd frontend
-npm run dev
+   In `backend/.env`:
+   ```env
+   PORT=3000
+   ```
 
-# backend
-cd backend
-npm start
-```
+4. Start development servers:
+   ```bash
+   # Start backend (from /backend)
+   npm run start
 
-Update these commands if your actual package scripts are different.
+   # Start frontend (from /frontend)
+   npm run dev
+   ```
 
-## 🎯 Purpose
+   The client application runs at `http://localhost:5173/` and communicates with the backend API on port `3000`.
 
-AnimY was built as a personal project centered on anime discovery and list management in one streamlined experience. The repository presents it as a full-stack app that showcases modern web development tools and practical API integration.
+---
 
-## 👨‍💻 Developer
+## Developer
 
-Developed by **Vincent Yuan**, a Computer Science student at Drexel University. The project highlights full-stack development with React, Express, Supabase, and anime data integration.
+Developed by **Vincent Yuan**, Computer Science at Drexel University.
