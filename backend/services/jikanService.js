@@ -2,13 +2,23 @@ import axios from 'axios';
 
 const jikanAPI = axios.create({
     baseURL: 'https://api.tenrai.org/v1',
-})
+});
+
+// Automatically remove empty/null/undefined query parameters before sending requests
+jikanAPI.interceptors.request.use((config) => {
+    if (config.params) {
+        config.params = Object.fromEntries(
+            Object.entries(config.params).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
+        );
+    }
+    return config;
+});
 
 const jikanService = {
     searchAnimes: async ( filterObject = {} ) => {
         try {
             const res = await jikanAPI.get('/anime', {
-                params:  { 
+                params: { 
                     order_by: 'popularity',
                     sort: 'asc',
                     ...filterObject 
@@ -27,7 +37,7 @@ const jikanService = {
     getTopAnimes: async ( limit = 14 ) => {
         try {
             const res = await jikanAPI.get('/top/anime', {
-                params: { limit: limit }
+                params: { limit }
             });
             
             return res.data.data;

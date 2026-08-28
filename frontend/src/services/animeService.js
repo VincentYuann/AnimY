@@ -4,13 +4,21 @@ const serverClient = axios.create({
   baseURL: 'https://animy.onrender.com/api', 
 });
 
+// Automatically remove empty/null/undefined query parameters before sending requests
+serverClient.interceptors.request.use((config) => {
+  if (config.params) {
+    config.params = Object.fromEntries(
+      Object.entries(config.params).filter(([key, value]) => value !== '' && value !== null && value !== undefined)
+    );
+  }
+  return config;
+});
+
 // Max 25 results per page
 export const searchAnimes = async (filterObject={}) => {
     try {
         const res = await serverClient.get('/anime/search', {
-            params: {
-                ...Object.fromEntries(filterObject)
-            }
+            params: Object.fromEntries(filterObject)
         });
 
         return {
@@ -25,7 +33,7 @@ export const searchAnimes = async (filterObject={}) => {
 export const getTopAnimes = async (limit=14) => {
     try {
         const res = await serverClient.get('/anime/top', {
-            params: { limit: limit }
+            params: { limit }
         });
         
         return res.data
@@ -37,7 +45,7 @@ export const getTopAnimes = async (limit=14) => {
 export const getRandomAnimes = async (limit=14) => {
     try {
         const res = await serverClient.get('/anime/random', {
-            params: { limit: limit }
+            params: { limit }
         });
 
         return res.data;
@@ -69,7 +77,7 @@ export const getSeasonList = async () => {
 export const getCurrentSeason = async (page) => {
     try {
         const res = await serverClient.get('/anime/seasons/current', {
-            params: { page: page }
+            params: { page }
         });
         return res.data;
     } catch (error) {
@@ -80,7 +88,7 @@ export const getCurrentSeason = async (page) => {
 export const getUpcomingSeasons = async (page) => {
     try {
         const res = await serverClient.get('/anime/seasons/upcoming', {
-            params: { page: page }
+            params: { page }
         });
         return res.data;
     } catch (error) {
@@ -91,10 +99,12 @@ export const getUpcomingSeasons = async (page) => {
 export const getSeason = async (year, season, page) => {
     try {
         const res = await serverClient.get(`/anime/seasons/${year}/${season}`, {
-            params: { page: page }
+            params: { page }
         });
         return res.data;
     } catch (error) {
         throw new Error(`API request failed: ${error.response.status}`);
     }
 }
+
+
