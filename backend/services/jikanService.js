@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const jikanAPI = axios.create({
-    baseURL: 'https://api.jikan.moe/v4',
+    baseURL: 'https://api.tenrai.org/v1',
 })
 
 const jikanService = {
@@ -20,7 +20,7 @@ const jikanService = {
                 pagination: res.data.pagination
             };
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
 
@@ -32,7 +32,7 @@ const jikanService = {
             
             return res.data.data;
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
 
@@ -55,7 +55,7 @@ const jikanService = {
             return allAnime.slice(0, limit);
             
         } catch (error) {
-            throw new Error(`API request failed: ${error.response?.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
 
@@ -64,7 +64,7 @@ const jikanService = {
             const res = await jikanAPI.get(`/genres/anime`);
             return res.data.data;
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
     
@@ -74,7 +74,7 @@ const jikanService = {
             const res = await jikanAPI.get('/seasons')
             return res.data.data;
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
     
@@ -92,7 +92,7 @@ const jikanService = {
                 pagination: res.data.pagination
             };
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
 
@@ -110,7 +110,7 @@ const jikanService = {
                 pagination: res.data.pagination
             };
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     },
 
@@ -128,7 +128,7 @@ const jikanService = {
                 pagination: res.data.pagination
             };
         } catch (error) {
-            throw new Error(`API request failed: ${error.response.status}`);
+            throw new Error(`API request failed: ${error.response?.status || error.message}`);
         }
     }
 };
