@@ -11,28 +11,26 @@ function LoginForm() {
 
     const { mutate: login, error, isPending } = useMutation({
         mutationFn: ({ email, password }) => loginWithPassword(email, password),
-        onSuccess: () => navigate("/home"),
-        onError: () => toast.error("Error logging in.")
-    })
+        onSuccess: () => navigate("/"),
+        onError: (err) => toast.error(err.message || "Error logging in.")
+    });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const email = credentials.email;
-        const password = credentials.password;
-
-        login({ email, password });
-    }
+        login({ email: credentials.email, password: credentials.password });
+    };
 
     return (
         <form onSubmit={handleSubmit} className="auth-form">
             <input
                 type="email"
-                placeholder="Email"
+                placeholder="Email address"
                 className="auth-input"
                 value={credentials.email}
                 onChange={(e) => setCredentials(prev => ({ ...prev, email: e.target.value }))}
                 required
+                autoComplete="email"
+                aria-label="Email address"
             />
             <input
                 type={showPassword ? "text" : "password"}
@@ -41,14 +39,22 @@ function LoginForm() {
                 value={credentials.password}
                 onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                 required
+                autoComplete="current-password"
+                aria-label="Password"
             />
 
-            {error && <p className="error-message">{error.message}</p>}
+            <label className="show-password">
+                <input 
+                    type="checkbox" 
+                    checked={showPassword}
+                    onChange={() => setShowPassword(!showPassword)} 
+                />
+                Show password
+            </label>
+
+            {error && <p className="error-message" role="alert">{error.message}</p>}
 
             <div className="auth-footer">
-                <label className="show-password">
-                    <input type="checkbox" onClick={() => setShowPassword(!showPassword)} /> Show password
-                </label>
                 <button type="submit" className="btn-login" disabled={isPending}>
                     {isPending ? "Logging in..." : "Log in"}
                 </button>

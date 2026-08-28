@@ -4,7 +4,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { toUnderscore } from "../../utils/toUnderscore";
 import { getAnimeGenres } from "../../services/animeService";
 import { navBarSearchQueryContext } from "../../App";
-import SelectDropDownCheckbox from "../DropDownCheckbox"
+import SelectDropDownCheckbox from "../DropDownCheckbox";
+import "./FilterBar.css";
 
 const INITIAL_FILTER_STATE = {
     q: "",
@@ -98,16 +99,34 @@ function FilterBar() {
                 className="search-form"
             >
                 <div className="filter-search-input">
+                    <svg 
+                        className="filter-search-icon" 
+                        width="16" 
+                        height="16" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                    >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
                     <input
                         type="text"
                         name="q"
                         placeholder="Search for anime..."
                         value={filterObject.q}
                         onChange={e => setFilterObject((prev) => ({ ...prev, q: e.target.value }))}
+                        aria-label="Search anime by title"
                     />
                 </div>
 
-                <h3>Filters:</h3>
+                <div className="filter-header-row">
+                    <h3>Filters</h3>
+                </div>
                 <div className="filters-grid">
                     <SelectDropDownCheckbox
                         filterParamKey="type"

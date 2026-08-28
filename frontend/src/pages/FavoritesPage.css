@@ -1,0 +1,28 @@
+/* src/pages/FavoritesPage.css */
+
+.favorites-page {
+  animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.favorites-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.85rem;
+}
+
+.favorites-header h2 {
+  margin-bottom: 0;
+}
+
+.favorites-count-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}

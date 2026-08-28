@@ -1,0 +1,63 @@
+/* src/components/Pagination.css */
+
+.pagination-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  padding-bottom: 2rem;
+}
+
+.page-info {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.pagination-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Standard Page Button */
+.page-button {
+  background: rgba(19, 23, 34, 0.7);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  min-width: 38px;
+  height: 38px;
+  padding: 0 0.6rem;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 600;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  user-select: none;
+}
+
+.page-button:hover:not(.active) {
+  border-color: rgba(99, 102, 241, 0.5);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  background-color: rgba(79, 70, 229, 0.12);
+}
+
+.page-button.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  cursor: default;
+  pointer-events: none;
+}

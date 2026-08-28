@@ -20,7 +20,6 @@ function GoogleAuthButton() {
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 48 48"
-                        style={{ display: "block" }}
                     >
                         <path
                             fill="#EA4335"
@@ -42,7 +41,7 @@ function GoogleAuthButton() {
                     </svg>
                 </div>
                 <span className="gsi-material-button-contents">Log in with Google</span>
-                <span style={{ display: "none" }}>Log in with Google</span>
+                <span className="gsi-sr-only">Log in with Google</span>
             </div>
         </button>
     );

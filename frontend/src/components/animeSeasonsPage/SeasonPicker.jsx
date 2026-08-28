@@ -1,8 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getSeasonList } from "../../services/animeService";
 import DropDownCheckbox from "../../components/DropDownCheckbox";
+import "./SeasonPicker.css";
 
 const INITIAL_FILTER_STATE = {
     year: "",
@@ -11,7 +12,7 @@ const INITIAL_FILTER_STATE = {
 
 function SeasonPicker() {
     const [searchParams] = useSearchParams();
-    const [seasonFilters, setseasonFilters] = useState({ ...INITIAL_FILTER_STATE, ...Object.fromEntries(searchParams.entries()) });
+    const [seasonFilters, setSeasonFilters] = useState({ ...INITIAL_FILTER_STATE, ...Object.fromEntries(searchParams.entries()) });
     const navigate = useNavigate();
 
     const { data: seasonList } = useSuspenseQuery({
@@ -34,9 +35,8 @@ function SeasonPicker() {
         }))
         : [];
 
-    // -----------------------------------------------------------------------------------------------------------
-    const handleQuickSeasonAcess = (type) => {
-        setseasonFilters(INITIAL_FILTER_STATE);
+    const handleQuickSeasonAccess = (type) => {
+        setSeasonFilters(INITIAL_FILTER_STATE);
         navigate(`/seasons/${type}`);
     };
 
@@ -55,8 +55,10 @@ function SeasonPicker() {
 
     const handleSeasonReset = (e) => {
         e.preventDefault();
-        setseasonFilters(INITIAL_FILTER_STATE);
+        setSeasonFilters(INITIAL_FILTER_STATE);
     };
+
+    const isSpecificSearchValid = Boolean(seasonFilters.year && seasonFilters.season);
 
     return (
         <div className="season-picker-container">
@@ -69,23 +71,23 @@ function SeasonPicker() {
                 <div className="quick-access">
                     <button
                         name="current"
-                        className={searchParams.get('type') === 'current' ? 'active' : ''}
+                        className={`season-quick-btn ${searchParams.get('type') === 'current' ? 'active' : ''}`}
                         type="button"
-                        onClick={() => handleQuickSeasonAcess('current')}
+                        onClick={() => handleQuickSeasonAccess('current')}
                     >
-                        Current
+                        Current Season
                     </button>
                     <button
                         name="upcoming"
-                        className={searchParams.get('type') === 'upcoming' ? 'active' : ''}
+                        className={`season-quick-btn ${searchParams.get('type') === 'upcoming' ? 'active' : ''}`}
                         type="button"
-                        onClick={() => handleQuickSeasonAcess('upcoming')}
+                        onClick={() => handleQuickSeasonAccess('upcoming')}
                     >
                         Upcoming
                     </button>
                 </div>
 
-                <span className="separator"></span>
+                <span className="season-separator" aria-hidden="true"></span>
 
                 {/* Specific Search Group */}
                 <div className="specific-search">
@@ -93,24 +95,34 @@ function SeasonPicker() {
                         filterParamKey="year"
                         options={yearOptions}
                         value={seasonFilters.year}
-                        onChange={setseasonFilters}
+                        onChange={setSeasonFilters}
                     />
 
-                    <span>-</span>
+                    <span className="filter-dash" aria-hidden="true">—</span>
 
                     <DropDownCheckbox
-                        filterParamKey={seasonFilters.year ? "season" : "Pick a year first"}
+                        filterParamKey={seasonFilters.year ? "season" : "Season"}
                         options={seasonOptions}
                         value={seasonFilters.season}
-                        onChange={setseasonFilters}
+                        onChange={setSeasonFilters}
                         disabled={!seasonFilters.year}
                     />
 
-                    <button type="submit" className="search" disabled={!(seasonFilters.year && seasonFilters.season)}>Search</button>
-                    <button type="reset" className="reset">Reset</button>
+                    <div className="season-actions">
+                        <button 
+                            type="submit" 
+                            className="apply-filters-button" 
+                            disabled={!isSpecificSearchValid}
+                        >
+                            Find
+                        </button>
+                        <button type="reset" className="clear-filters-button">
+                            Reset
+                        </button>
+                    </div>
                 </div>
-            </form >
-        </div >
+            </form>
+        </div>
     );
 }
 

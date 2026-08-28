@@ -9,14 +9,13 @@ function SignupForm() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
-    const { mutate: login, error, isPending } = useMutation({
+    const { mutate: signup, error, isPending } = useMutation({
         mutationFn: ({ email, password }) => signupWithPassword(email, password),
         onSuccess: (data) => {
             const isExistingUser = data?.user?.identities?.length === 0;
 
             if (isExistingUser) {
                 toast.error("This email is already registered. Try logging in.", { icon: '📩' });
-
             } else {
                 toast.success("Account created successfully!");
                 navigate("/auth/login");
@@ -27,43 +26,50 @@ function SignupForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const email = credentials.email;
-        const password = credentials.password;
-
-        login({ email, password });
-    }
+        signup({ email: credentials.email, password: credentials.password });
+    };
 
     return (
         <form onSubmit={handleSubmit} className="auth-form">
             <input
                 type="email"
-                placeholder="Email"
+                placeholder="Email address"
                 className="auth-input"
                 value={credentials.email}
                 onChange={(e) => setCredentials(prev => ({ ...prev, email: e.target.value }))}
                 required
+                autoComplete="email"
+                aria-label="Email address"
             />
             <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Password"
+                placeholder="Create password (min 6 chars)"
                 className="auth-input"
                 value={credentials.password}
                 onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
                 required
+                minLength={6}
+                autoComplete="new-password"
+                aria-label="Password"
             />
 
-            {error && <p className="error-message">{error.message}</p>}
+            <label className="show-password">
+                <input 
+                    type="checkbox" 
+                    checked={showPassword}
+                    onChange={() => setShowPassword(!showPassword)} 
+                />
+                Show password
+            </label>
+
+            {error && <p className="error-message" role="alert">{error.message}</p>}
 
             <div className="auth-footer">
-                <label className="show-password">
-                    <input type="checkbox" onClick={() => setShowPassword(!showPassword)} /> Show password
-                </label>
                 <button type="submit" className="btn-login" disabled={isPending}>
-                    {isPending ? "Signing up..." : "Sign up"}
+                    {isPending ? "Signing up..." : "Sign Up"}
                 </button>
 
-                <p>Don’t have an account? <Link to="/auth/login">Log in</Link></p>
+                <p>Already have an account? <Link to="/auth/login">Log in</Link></p>
             </div>
         </form>
     );

@@ -1,0 +1,80 @@
+/* src/components/animeSeasonsPage/SeasonPicker.css */
+
+.season-picker-container {
+  position: relative;
+  z-index: 30;
+  background: rgba(19, 23, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  padding: 1.1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.season-picker-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.quick-access {
+  display: flex;
+  align-items: center;
+  background: rgba(11, 13, 20, 0.7);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 0.3rem;
+  gap: 0.3rem;
+}
+
+.season-quick-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.season-quick-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.season-quick-btn.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.season-separator {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.specific-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.filter-dash {
+  color: var(--text-muted);
+  font-weight: bold;
+}
+
+.season-actions {
+  display: flex;
+  gap: 0.5rem;
+}

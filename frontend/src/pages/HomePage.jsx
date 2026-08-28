@@ -1,27 +1,28 @@
 import TopAnimeGrid from "../components/homePage/TopAnimeGrid";
-import RandomAnimeGrid from "../components/homePage/RandomAnimeGrid"
+import RandomAnimeGrid from "../components/homePage/RandomAnimeGrid";
 import QueryWrapper from "../components/QueryWrapper";
+import "./HomePage.css";
 
 function HomePage() {
     return (
-        <div className="home">
-            <div className="title">
-                <h2>Home Page</h2>
-            </div>
+        <div className="home-page">
+            <section className="home-section">
+                <h2>Top Anime</h2>
+                <div className="top-anime-list">
+                    <QueryWrapper loadingMessage="Loading top anime...">
+                        <TopAnimeGrid />
+                    </QueryWrapper>
+                </div>
+            </section>
 
-            <div className="top-anime-list">
-                <h2>Top Animes</h2>
-                <QueryWrapper loadingMessage="Loading top 10 animes...">
-                    <TopAnimeGrid />
-                </QueryWrapper>
-            </div>
-
-            <div className="random-anime-list">
-                <h2>Random Animes</h2>
-                <QueryWrapper loadingMessage="Loading random animes...">
-                    <RandomAnimeGrid />
-                </QueryWrapper>
-            </div>
+            <section className="home-section">
+                <h2>Discover Random</h2>
+                <div className="random-anime-list">
+                    <QueryWrapper loadingMessage="Loading random anime...">
+                        <RandomAnimeGrid />
+                    </QueryWrapper>
+                </div>
+            </section>
         </div>
     );
 }

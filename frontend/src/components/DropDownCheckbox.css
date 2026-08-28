@@ -1,0 +1,107 @@
+/* src/components/DropDownCheckbox.css */
+
+.filter-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.filter-dropdown.is-open {
+  z-index: 50;
+}
+
+.filter-dropdown-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  background-color: rgba(11, 13, 20, 0.6);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 110px;
+  transition: all 0.2s ease;
+}
+
+.filter-dropdown-button:hover:not(:disabled) {
+  border-color: rgba(99, 102, 241, 0.5);
+  background-color: rgba(27, 32, 46, 0.8);
+  transform: translateY(-1px);
+}
+
+.filter-dropdown.has-selection .filter-dropdown-button {
+  border-color: var(--accent-glow);
+  background-color: rgba(79, 70, 229, 0.15);
+  color: #ffffff;
+}
+
+.filter-dropdown-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dropdown-chevron {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.7;
+}
+
+.dropdown-chevron.open {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.filter-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 120;
+  min-width: 185px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: rgba(15, 18, 28, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 0.4rem;
+  box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.7);
+  animation: dropdownIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.dropdown-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.dropdown-menu-item.item-checked {
+  color: #a5b4fc;
+  background: rgba(79, 70, 229, 0.15);
+  font-weight: 600;
+}
+
+.dropdown-menu-item input[type="checkbox"] {
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+}

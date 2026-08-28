@@ -5,13 +5,11 @@ import AnimeSeasonContent from '../components/animeSeasonsPage/AnimeSeasonConten
 const AnimeSeasonsPage = () => {
     return (
         <main>
-            <h1>Explore Seasons</h1>
+            <h2>Explore Seasons</h2>
 
             <QueryWrapper loadingMessage="Loading season options...">
                 <SeasonPicker />
             </QueryWrapper>
-
-            <hr />
 
             <QueryWrapper loadingMessage="Loading season content...">
                 <AnimeSeasonContent />

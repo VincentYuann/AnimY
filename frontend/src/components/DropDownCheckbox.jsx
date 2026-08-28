@@ -1,102 +1,125 @@
 import { useState, useRef, useEffect } from "react";
+import "./DropDownCheckbox.css";
 
 function DropDownCheckbox({ filterParamKey, options, value, onChange: setFilterObject, multiselect = false, disabled = false }) {
-    const [isOpen, setIsOpen] = useState(false)
-    const dropDownDivRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false);
+    const dropDownDivRef = useRef(null);
 
-    // Toggle the div that shows all the options
+    // Close on click outside or Escape key
     useEffect(() => {
         if (!isOpen) return;
 
         const handleClickOutside = (event) => {
             if (dropDownDivRef.current && !dropDownDivRef.current.contains(event.target)) {
-                setIsOpen(false)
+                setIsOpen(false);
             }
-        }
+        };
 
-        document.addEventListener("mousedown", handleClickOutside)
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                setIsOpen(false);
+            }
+        };
 
-        // Deletes the event so it doesn't stack up overtime
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleKeyDown);
+        };
     }, [isOpen]);
 
-    // DATA: Convert each value into an array (if it isn't already), filter out any empty values, and convert everything to strings for easier comparison 
+    // Convert value into an array and convert to strings
     const selectedArray = [].concat(value)
-        .filter(value => value !== null && value !== undefined && value !== "")
+        .filter(v => v !== null && v !== undefined && v !== "")
         .map(String);
-
 
     const getButtonLabel = () => {
         if (selectedArray.length === 0 || !value) {
-            const defaultLabel = filterParamKey.charAt(0).toUpperCase() + filterParamKey.slice(1);
-            return defaultLabel;
+            return filterParamKey.charAt(0).toUpperCase() + filterParamKey.slice(1);
         }
 
-        // Find the matching option
         const match = options.find(option => String(option.value) === selectedArray[0]);
-
-        // Safety check: If no match found, fall back to the key name
         const firstMatchingLabel = match ? match.label : filterParamKey;
 
         return multiselect && selectedArray.length > 1
             ? `${firstMatchingLabel} (+${selectedArray.length - 1})`
             : firstMatchingLabel;
-    }
+    };
 
+    const isSelected = selectedArray.length > 0;
 
     const handleFilterObjectUpdate = (e) => {
         const { name, value: clickedValue, checked } = e.target;
         const stringValue = String(clickedValue);
 
         if (multiselect) {
-            if (checked) { // Add to list
+            if (checked) {
                 setFilterObject(prev => ({ ...prev, [name]: [...selectedArray, stringValue] }));
-            } else { // Remove from list
+            } else {
                 const newArray = selectedArray.filter(val => String(val) !== stringValue);
                 setFilterObject(prev => ({ ...prev, [name]: newArray }));
             }
-        } else { // Replace value
+        } else {
             if (checked) {
                 setFilterObject(prev => ({ ...prev, [name]: stringValue }));
-            } else { // Remove value 
+            } else {
                 setFilterObject(prev => ({ ...prev, [name]: "" }));
             }
-
         }
-    }
+    };
 
     return (
-        <div className="filter-dropdown" ref={dropDownDivRef}>
+        <div className={`filter-dropdown ${isOpen ? "is-open" : ""} ${isSelected ? "has-selection" : ""}`} ref={dropDownDivRef}>
             <button
                 type="button"
                 className="filter-dropdown-button"
                 onClick={() => setIsOpen(!isOpen)}
                 disabled={disabled}
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
+                aria-label={`Filter by ${filterParamKey}`}
             >
-                <span>{getButtonLabel()}</span>
-                <span className="arrow">{isOpen ? " ▲" : " ▼"}</span>
+                <span className="dropdown-label">{getButtonLabel()}</span>
+                <svg 
+                    className={`dropdown-chevron ${isOpen ? "open" : ""}`} 
+                    width="12" 
+                    height="12" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                >
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
             </button>
 
-            {isOpen &&
-                <div className="filter-dropdown-menu">
-                    {options.map((option) => (
-                        <label key={option.value} className="dropdown-menu-item">
-                            <input
-                                name={filterParamKey}
-                                value={option.value}
-                                type="checkbox"
-                                checked={selectedArray.includes(String(option.value))}
-                                onChange={(e) => {
-                                    handleFilterObjectUpdate(e);
-                                    if (!multiselect) setIsOpen(false);
-                                }}
-                            />
-                            {option.label}
-                        </label>
-                    ))}
+            {isOpen && (
+                <div className="filter-dropdown-menu" role="listbox" aria-multiselectable={multiselect}>
+                    {options.map((option) => {
+                        const checked = selectedArray.includes(String(option.value));
+                        return (
+                            <label key={option.value} className={`dropdown-menu-item ${checked ? "item-checked" : ""}`}>
+                                <input
+                                    name={filterParamKey}
+                                    value={option.value}
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={(e) => {
+                                        handleFilterObjectUpdate(e);
+                                        if (!multiselect) setIsOpen(false);
+                                    }}
+                                />
+                                <span className="item-label">{option.label}</span>
+                            </label>
+                        );
+                    })}
                 </div>
-
-            }
+            )}
         </div>
     );
 }

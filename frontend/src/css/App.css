@@ -1,10 +1,10 @@
-/* src/css/App.css */
+/* src/css/App.css - Global Layout, Grids & Shared States */
 
 /* --- Animations --- */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -19,550 +19,131 @@
 /* --- Main Layout --- */
 #root {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1560px;
   margin: 0 auto;
   padding: 0 2rem 4rem;
   text-align: center;
 }
 
 .main-content {
-  padding-top: 2rem;
+  padding-top: 1.5rem;
   min-height: 80vh;
 }
 
-/* --- Headers --- */
+/* --- Section Headers --- */
 h2 {
-  font-size: 2rem;
+  font-size: 1.85rem;
   font-weight: 800;
   margin-bottom: 2rem;
   text-align: left;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.85rem;
   color: var(--text-primary);
 }
 
 h2::before {
   content: '';
   display: block;
-  width: 6px;
-  height: 2rem;
-  background: var(--accent-primary);
+  width: 5px;
+  height: 1.75rem;
+  background: var(--accent-glow);
   border-radius: 4px;
-  box-shadow: 0 0 15px var(--accent-primary);
 }
 
-/* --- NavBar --- */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  margin-bottom: 3rem;
-  
-  /* Glassmorphism Effect */
-  background: rgba(9, 9, 11, 0.75); 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.navbar .brand {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: var(--text-primary);
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.3));
-}
-
-.navbar-links {
-  display: flex;
-  gap: 2rem;
-}
-
-.navbar .nav-link {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  position: relative;
-  padding: 0.5rem 0;
-}
-
-.navbar .nav-link:hover {
-  color: var(--text-primary);
-}
-
-.navbar .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--accent-primary);
-  transition: width 0.3s ease;
-  box-shadow: 0 0 8px var(--accent-primary);
-}
-
-.navbar .nav-link:hover::after {
-  width: 100%;
-}
-
-/* --- NavBar Search Form --- */
-.navbar .search-form {
-  display: flex;
-  gap: 0.5rem;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 2rem;
-  align-items: center;
-}
-
-.navbar .search-input {
-  flex-grow: 1;
-  background-color: rgba(39, 39, 42, 0.5);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.8rem 1.2rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.navbar .search-input:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
-  background-color: #202024;
-}
-
-/* --- Filter Bar --- */
-.filter-bar {
-  background: rgba(24, 24, 27, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  margin-bottom: 3rem;
-  text-align: left;
-}
-
-.filter-bar .search-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-}
-
-/* 1. Search Input Merged with Icon */
-.filter-search-input {
-  position: relative;
-  width: 100%;
-}
-
-.filter-search-input input {
-  width: 100%;
-  background-color: rgba(24, 24, 27, 0.5);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.8rem 1rem 0.8rem 3rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.filter-search-input input:focus {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
-}
-
-.filter-search-input .search-icon {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  font-size: 1.1rem;
-  opacity: 0.7;
-}
-
-/* 2. Horizontal Filters */
-.filter-bar h3 {
-  margin: 0;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-secondary);
-  font-weight: 700;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: center;
-  width: 100%;
-}
-
-.filter-group {
-  display: flex;
-  align-items: center;
-}
-
-/* Inputs inside Filter Bar */
-.filter-bar select, 
-.filter-bar input[type="number"], 
-.filter-bar input[type="text"] {
-  background-color: rgba(24, 24, 27, 0.5);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s;
-  min-width: 120px; 
-}
-
-.filter-bar select:focus,
-.filter-bar input:focus {
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
-}
-
-/* Checkbox specific styling */
-.filter-bar label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: all 0.2s;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-}
-
-.filter-bar label:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.1);
-}
-
-.filter-button-inputs {
-  display: flex;
-  gap: 1rem;
-  margin-left: auto;
-}
-
-.apply-filters-button {
-  background-color: var(--accent-primary);
-  color: white;
-  border: none;
-}
-
-.apply-filters-button:hover {
-  background-color: var(--accent-glow);
-  box-shadow: var(--shadow-neon);
-}
-
-.clear-filters-button {
-  background-color: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-color);
-}
-
-.clear-filters-button:hover {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
-}
-
-/* --- Anime Grids (UPDATED) --- */
+/* --- Responsive Anime Grids (Optimized for 25-item pages: 5x5 grid) --- */
 .top-anime-list, 
 .random-anime-list, 
 .search-results-grid, 
 .favorite-anime-list {
   display: grid;
-  /* FIX: Increased min-width from 200px to 230px to force 5 columns on desktop */
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 2rem;
-  /* FIX: Reduced margin to pull pagination closer */
-  margin-bottom: 2rem;
-  width: 100%;
-  justify-content: center;
-}
-
-/* --- AnimeCard Component --- */
-.anime-card {
-  background: var(--bg-surface);
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  animation: fadeInUp 0.6s ease backwards;
-}
-
-.anime-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent-primary);
-  box-shadow: var(--shadow-lg), var(--shadow-neon);
-  z-index: 5;
-}
-
-.anime-poster {
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
-  position: relative;
-}
-
-.anime-poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.anime-card:hover .anime-poster img {
-  transform: scale(1.1);
-}
-
-/* --- Heart Overlay (Top Right of Poster) --- */
-.anime-overlay {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 10;
-}
-
-.favorite {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.favorite:hover {
-  background: var(--accent-secondary);
-  border-color: var(--accent-secondary);
-  transform: scale(1.1);
-  box-shadow: 0 0 10px var(--accent-secondary);
-}
-
-/* --- Info Section --- */
-.anime-info {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  background: linear-gradient(to bottom, var(--bg-surface) 0%, #0c0c0e 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.anime-info h3 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.4;
-  min-height: 2.8em; 
-}
-
-/* --- 2x2 Grid Layout for Meta --- */
-.anime-meta {
-  display: grid;
-  grid-template-areas: 
-    "year score"
-    "eps  type";
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin-top: auto;
-  align-items: center;
-}
-
-.anime-meta > span {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-/* Individual Badge Positioning & Colors */
-.badge-year {
-  grid-area: year;
-  justify-self: start;
-  color: #22d3ee; /* Cyan */
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.2);
-}
-
-.badge-score {
-  grid-area: score;
-  justify-self: end;
-  color: #fbbf24; /* Gold */
-  background: rgba(234, 179, 8, 0.1);
-  border: 1px solid rgba(234, 179, 8, 0.2);
-}
-
-.badge-eps {
-  grid-area: eps;
-  justify-self: start;
-  color: #f472b6; /* Pink */
-  background: rgba(236, 72, 153, 0.1);
-  border: 1px solid rgba(236, 72, 153, 0.2);
-}
-
-.badge-type {
-  grid-area: type;
-  justify-self: end;
-  color: #a78bfa; /* Violet */
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  text-transform: uppercase;
-}
-
-/* --- Pagination (UPDATED) --- */
-.pagination-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1.5rem;
-  /* FIX: Reduced margin to prevent huge gap */
-  margin-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-.page-info {
-  color: var(--text-secondary);
-  font-size: 1.5rem;
-  font-weight: 1000;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 0;
-}
-
-.pagination-buttons {
-  padding: 20px 20px;
-  font-size: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Standard Page Button */
-.page-button {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  min-width: 40px;
-  height: 40px;
-  padding: 0 0.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  font-weight: 600;
-  display: flex;
-  align-items: center;
+  margin-bottom: 2.5rem;
+  width: 100%;
   justify-content: center;
 }
 
-.page-button:hover:not(:disabled) {
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
-  background-color: rgba(139, 92, 246, 0.05);
+@media (max-width: 1200px) {
+  .top-anime-list, 
+  .random-anime-list, 
+  .search-results-grid, 
+  .favorite-anime-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
 }
 
-.page-button.active {
-  background: var(--accent-primary);
-  color: white;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+@media (max-width: 900px) {
+  .top-anime-list, 
+  .random-anime-list, 
+  .search-results-grid, 
+  .favorite-anime-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
 }
 
-.page-button:disabled {
-  opacity: 1; /* Keep active state bright */
-  cursor: default;
+@media (max-width: 640px) {
+  .top-anime-list, 
+  .random-anime-list, 
+  .search-results-grid, 
+  .favorite-anime-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+  
+  #root {
+    padding: 0 1rem 3rem;
+  }
 }
 
-/* --- States --- */
+/* --- Global States & Feedback --- */
 .loading-spinner {
   display: inline-block;
   width: 40px;
   height: 40px;
-  border: 3px solid rgba(139, 92, 246, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  border-top-color: var(--accent-primary);
-  animation: spin 1s ease-in-out infinite;
+  border-top-color: var(--accent-glow);
+  animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
   margin-bottom: 1rem;
 }
 
 .loading-text {
   color: var(--accent-glow);
-  font-weight: bold;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 0.92rem;
   text-transform: uppercase;
 }
 
 .error-box {
-  background: rgba(220, 38, 38, 0.1);
-  border: 1px solid rgba(220, 38, 38, 0.3);
-  color: #fca5a5;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: #fda4af;
   padding: 2rem;
-  border-radius: 12px;
-  max-width: 600px;
+  border-radius: 14px;
+  max-width: 550px;
   margin: 2rem auto;
+  backdrop-filter: blur(12px);
 }
 
 .btn-retry {
-  background: rgba(220, 38, 38, 0.2);
-  border: 1px solid rgba(220, 38, 38, 0.5);
-  color: white;
+  background: rgba(244, 63, 94, 0.2);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  color: #ffffff;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
   margin-top: 1rem;
+  transition: all 0.2s ease;
 }
 
 .btn-retry:hover {
-  background: rgba(220, 38, 38, 0.4);
+  background: rgba(244, 63, 94, 0.4);
 }
