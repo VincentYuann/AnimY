@@ -8,20 +8,20 @@ function HomePage() {
         <div className="home-page">
             <section className="home-section">
                 <h2>Top Anime</h2>
-                <div className="top-anime-list">
-                    <QueryWrapper loadingMessage="Loading top anime...">
+                <QueryWrapper skeletonCount={10} gridClassName="top-anime-list">
+                    <div className="top-anime-list">
                         <TopAnimeGrid />
-                    </QueryWrapper>
-                </div>
+                    </div>
+                </QueryWrapper>
             </section>
 
             <section className="home-section">
                 <h2>Discover Random</h2>
-                <div className="random-anime-list">
-                    <QueryWrapper loadingMessage="Loading random anime...">
+                <QueryWrapper skeletonCount={10} gridClassName="random-anime-list">
+                    <div className="random-anime-list">
                         <RandomAnimeGrid />
-                    </QueryWrapper>
-                </div>
+                    </div>
+                </QueryWrapper>
             </section>
         </div>
     );

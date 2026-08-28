@@ -1,27 +1,34 @@
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
+import AnimeGridSkeleton from "./skeletons/AnimeGridSkeleton";
 
-// A component that handles error and loading from useSuspenseQuery
-function QueryWrapper({ children, loadingMessage }) {
-  const { reset } = useQueryErrorResetBoundary(); // The function that resets cached error
+// Handles error boundary and realistic skeleton loading states
+function QueryWrapper({ 
+  children, 
+  fallback, 
+  skeletonCount = 10,
+  gridClassName = "search-results-grid" 
+}) {
+  const { reset } = useQueryErrorResetBoundary();
+
+  const defaultFallback = fallback || (
+    <AnimeGridSkeleton count={skeletonCount} gridClassName={gridClassName} />
+  );
 
   return (
     <ErrorBoundary
-      onReset={reset} // Resets cached error
+      onReset={reset}
       fallbackRender={({ error, resetErrorBoundary }) => (
-        <div className="error-box">
+        <div className="error-box" role="alert">
           <p>⚠️ Error: {error.message}</p>
-          <button onClick={resetErrorBoundary} className="btn-retry">
+          <button type="button" onClick={resetErrorBoundary} className="btn-retry">
             Try Again
-          </button>{" "}
-          {/* Resets UI error */}
+          </button>
         </div>
       )}
     >
-      <Suspense
-        fallback={<div className="loading-spinner">{loadingMessage}</div>}
-      >
+      <Suspense fallback={defaultFallback}>
         {children}
       </Suspense>
     </ErrorBoundary>
