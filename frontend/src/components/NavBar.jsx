@@ -47,8 +47,8 @@ export default function NavBar() {
                         src="/kitsune-logo.png" 
                         alt="AnimY Mascot" 
                         className="brand-logo" 
-                        width="36" 
-                        height="36" 
+                        width="44" 
+                        height="44" 
                     />
                     <span className="brand-text">
                         Anim<span className="brand-accent">Y</span>

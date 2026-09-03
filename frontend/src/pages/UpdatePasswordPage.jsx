@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { updatePassword, signOut } from "../services/authService";
@@ -8,38 +8,59 @@ import "./UpdatePasswordPage.css";
 
 function UpdatePasswordPage() {
     const navigate = useNavigate();
-    const [loginMethod, setLoginMethod] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
+    const isUpdatedRef = useRef(false);
+    const isOtpSessionRef = useRef(sessionStorage.getItem("animy_password_recovery") === "true");
+
     useEffect(() => {
-        const getSession = async () => {
-            const { data: { claims } } = await supabase.auth.getClaims();
-            if (claims?.amr?.[0]?.method) {
-                setLoginMethod(claims.amr[0].method);
+        const checkSessionMethod = async () => {
+            try {
+                const res = await supabase.auth.getClaims();
+                const claims = res?.data?.claims;
+                const isOtp = claims?.amr?.some(
+                    (entry) => entry.method === "otp" || entry.method === "recovery"
+                );
+
+                if (isOtp) {
+                    isOtpSessionRef.current = true;
+                }
+            } catch (err) {
+                console.error("Failed to read claims:", err);
             }
         };
 
-        getSession();
+        checkSessionMethod();
 
-        return async () => {
-            if (loginMethod === "otp") {
-                await signOut();
+        const handleBeforeUnload = () => {
+            if (isOtpSessionRef.current && !isUpdatedRef.current) {
+                sessionStorage.removeItem("animy_password_recovery");
+                signOut().catch(() => {});
+            }
+        };
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+
+            // If user entered via recovery session and leaves without updating:
+            if (isOtpSessionRef.current && !isUpdatedRef.current) {
+                sessionStorage.removeItem("animy_password_recovery");
+                signOut().catch(console.error);
                 toast("You've been logged out as password reset was not finished.", { icon: '🔒' });
             }
         };
-    }, [loginMethod]);
+    }, []);
 
     const { mutate: handlePasswordUpdate, error, isPending } = useMutation({
         mutationFn: ({ newPassword }) => updatePassword(newPassword),
-        onError: () => toast.error("Error updating password"),
+        onError: (err) => toast.error(err?.message || "Error updating password"),
         onSuccess: async () => {
+            isUpdatedRef.current = true;
+            sessionStorage.removeItem("animy_password_recovery");
             toast.success("Password updated successfully!");
-            if (loginMethod === "otp") {
-                await signOut();
-            } else {
-                navigate("/profile");
-            }
+            navigate("/profile");
         }
     });
 
