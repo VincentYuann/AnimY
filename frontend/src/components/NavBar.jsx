@@ -43,8 +43,7 @@ export default function NavBar() {
         <header>
             <nav className="navbar" aria-label="Main Navigation">
                 <Link to="/" className="brand" aria-label="AnimY Home">
-                    <img src="/logo.png" alt="AnimY Logo" className="brand-logo" />
-                    <span>Anim<span className="brand-accent">Y</span></span>
+                    Anim<span className="brand-accent">Y</span>
                     <span className="brand-star" aria-hidden="true">★</span>
                 </Link>
 
