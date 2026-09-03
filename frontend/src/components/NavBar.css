@@ -25,13 +25,36 @@
   letter-spacing: -0.03em;
   display: inline-flex;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.55rem;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  transition: opacity 0.2s ease;
+  line-height: 1;
 }
 
 .navbar .brand:hover {
-  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+.navbar .brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 1.5px solid rgba(99, 102, 241, 0.45);
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.35), 0 2px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.navbar .brand:hover .brand-logo {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 0 18px rgba(99, 102, 241, 0.65), 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.navbar .brand-text {
+  display: inline-flex;
+  align-items: center;
 }
 
 .navbar .brand-accent {
