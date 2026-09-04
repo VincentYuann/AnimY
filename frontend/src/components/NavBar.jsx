@@ -39,15 +39,10 @@ export default function NavBar() {
         searchInputRef.current?.blur();
     };
 
-    const handleBrandClick = () => {
-        setNavBarSearchQuery("");
-        setText("");
-    };
-
     return (
         <header>
             <nav className="navbar" aria-label="Main Navigation">
-                <Link to="/" className="brand" aria-label="AnimY Home" onClick={handleBrandClick}>
+                <Link to="/" className="brand" aria-label="AnimY Home">
                     <img 
                         src="/kitsune-logo.png" 
                         alt="AnimY Mascot" 
@@ -86,7 +81,6 @@ export default function NavBar() {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             aria-label="Search anime titles"
-                            aria-keyshortcuts="/"
                         />
                         <kbd className="search-shortcut" title="Press / to search" aria-hidden="true">/</kbd>
                     </div>

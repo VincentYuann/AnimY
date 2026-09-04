@@ -259,14 +259,6 @@
 
   .navbar .nav-link {
     font-size: 0.88rem;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .search-submit-btn {
-    min-height: 44px;
-    padding: 0 1.25rem;
   }
 }
 
@@ -280,13 +272,13 @@
   }
 
   .navbar .brand-logo {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
   }
 
   .nav-avatar {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
   }
 
   .navbar-links {
@@ -296,8 +288,5 @@
   .navbar .nav-link {
     font-size: 0.8rem;
     letter-spacing: 0.02em;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
   }
 }
