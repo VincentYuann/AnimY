@@ -29,13 +29,13 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/search" element={<SearchPage />} />
-                <Route path="/seasons/:type" element={<AnimeSeasonsPage />} />\
+                <Route path="/seasons/:type" element={<AnimeSeasonsPage />} />
+                <Route path="/update-password" element={<UpdatePasswordPage />} />
 
                 {/* Private Routes */}
                 <Route path="/" element={<PrivateRouteWrapper />} >
                   <Route path="/favorites" element={<FavoritesPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/update-password" element={<UpdatePasswordPage />} />
                 </Route>
 
                 {/* Authentication routes */}

@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { updatePassword, signOut } from "../services/authService";
 import { toast } from "react-hot-toast";
 import supabase from "../services/supabaseClient";
+import { useAuth } from "../context/AuthContext";
 import "./UpdatePasswordPage.css";
 
 function UpdatePasswordPage() {
     const navigate = useNavigate();
+    const { user, loading } = useAuth();
     const [newPassword, setNewPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
@@ -72,6 +74,39 @@ function UpdatePasswordPage() {
         }
         handlePasswordUpdate({ newPassword });
     };
+
+    const hasRecoveryIntent = sessionStorage.getItem("animy_password_recovery") === "true" || 
+                              window.location.hash.includes("type=recovery");
+
+    if (loading && hasRecoveryIntent) {
+        return (
+            <div className="update-password-page">
+                <div className="update-password-card" style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
+                    <p style={{ color: "var(--text-secondary)" }}>Verifying reset link...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!user && !hasRecoveryIntent) {
+        return (
+            <div className="update-password-page">
+                <div className="update-password-card" style={{ textAlign: "center", padding: "2.5rem 1.5rem" }}>
+                    <h2>Password Reset Required</h2>
+                    <p style={{ color: "var(--text-secondary)", margin: "1rem 0 1.5rem" }}>
+                        No active password reset request was found. Please request a new link to reset your password.
+                    </p>
+                    <button 
+                        type="button" 
+                        className="btn-submit-password" 
+                        onClick={() => navigate("/auth/forgot-password")}
+                    >
+                        Request Reset Link
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="update-password-page">
