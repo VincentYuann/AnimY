@@ -1,0 +1,27 @@
+/* src/components/AnimYLogo.css */
+
+.animy-wordmark {
+  display: block;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  will-change: transform;
+}
+
+.animy-wordmark:hover {
+  transform: translateY(-1px) scale(1.025);
+  opacity: 0.96;
+}
+
+/* Crisp solid color hover reaction without fuzzy blur */
+.animy-katana-bold .animy-hero-y {
+  transition: fill 0.2s ease;
+}
+
+.animy-katana-bold:hover .animy-hero-y {
+  fill: #818cf8;
+}
+
+.animy-katana-bold:hover .animy-i-dot {
+  fill: #a5b4fc;
+}

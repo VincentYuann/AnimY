@@ -20,59 +20,12 @@
 }
 
 .navbar .brand {
-  font-size: 1.85rem;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.03em;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
   text-decoration: none;
-  transition: opacity 0.2s ease;
   line-height: 1;
 }
 
-.navbar .brand:hover {
-  opacity: 0.95;
-}
-
-.navbar .brand-logo {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  border: 1.5px solid rgba(99, 102, 241, 0.45);
-  box-shadow: 0 0 14px rgba(99, 102, 241, 0.4), 0 2px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-  will-change: transform;
-}
-
-.navbar .brand:hover .brand-logo {
-  transform: scale(1.08) rotate(3deg);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.7), 0 3px 10px rgba(0, 0, 0, 0.6);
-}
-
-.navbar .brand-text {
-  display: inline-flex;
-  align-items: center;
-}
-
-.navbar .brand-accent {
-  color: var(--accent-glow);
-}
-
-.navbar .brand-star {
-  color: var(--accent-gold);
-  margin-left: 0.35rem;
-  font-size: 1.2rem;
-  animation: starPulse 2.5s ease-in-out infinite alternate;
-}
-
-@keyframes starPulse {
-  0% { transform: rotate(0deg) scale(0.95); opacity: 0.85; }
-  100% { transform: rotate(15deg) scale(1.1); opacity: 1; filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5)); }
-}
 
 .navbar-links {
   display: flex;
@@ -232,13 +185,9 @@
     min-height: auto;
   }
 
-  .navbar .brand {
-    font-size: 1.6rem;
-  }
-
-  .navbar .brand-logo {
-    width: 38px;
-    height: 38px;
+  .navbar .brand svg {
+    height: 28px;
+    width: auto;
   }
 
   .nav-avatar {
@@ -267,13 +216,9 @@
     padding: 0.75rem 1rem;
   }
 
-  .navbar .brand {
-    font-size: 1.45rem;
-  }
-
-  .navbar .brand-logo {
-    width: 34px;
-    height: 34px;
+  .navbar .brand svg {
+    height: 24px;
+    width: auto;
   }
 
   .nav-avatar {

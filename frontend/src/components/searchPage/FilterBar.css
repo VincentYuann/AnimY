@@ -84,19 +84,35 @@
   gap: 0.4rem;
   background-color: rgba(11, 13, 20, 0.6);
   border: 1px solid var(--border-color);
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.6rem;
   border-radius: 10px;
 }
 
 .filter-score input {
-  width: 75px;
+  width: 90px;
   background: transparent;
   border: none;
   color: var(--text-primary);
   font-size: 0.85rem;
-  padding: 0.35rem 0.4rem;
+  padding: 0.35rem 0.25rem;
   outline: none;
   text-align: center;
+}
+
+.filter-score input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+/* Hide default browser number spin buttons */
+.filter-score input::-webkit-outer-spin-button,
+.filter-score input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.filter-score input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .filter-score span {

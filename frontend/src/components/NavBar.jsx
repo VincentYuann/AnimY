@@ -2,6 +2,7 @@ import { NavLink, Link, useNavigate, createSearchParams } from "react-router-dom
 import { useContext, useState, useEffect, useRef } from "react";
 import { navBarSearchQueryContext } from "../App";
 import { useAuth } from "../context/AuthContext";
+import AnimYLogo from "./AnimYLogo";
 import "./NavBar.css";
 
 export default function NavBar() {
@@ -43,17 +44,7 @@ export default function NavBar() {
         <header>
             <nav className="navbar" aria-label="Main Navigation">
                 <Link to="/" className="brand" aria-label="AnimY Home">
-                    <img 
-                        src="/kitsune-logo.png" 
-                        alt="AnimY Mascot" 
-                        className="brand-logo" 
-                        width="44" 
-                        height="44" 
-                    />
-                    <span className="brand-text">
-                        Anim<span className="brand-accent">Y</span>
-                    </span>
-                    <span className="brand-star" aria-hidden="true">★</span>
+                    <AnimYLogo size={30} />
                 </Link>
 
                 <form onSubmit={handleSubmit} className="search-form" role="search">
